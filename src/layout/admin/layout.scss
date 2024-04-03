@@ -12459,6 +12459,8 @@ label {
 .image-upload {
     object-fit: cover;
     margin-top: 35px;
+    width: 100%;
+    height: 100px;
 }
 
 .addColor {
@@ -12634,3 +12636,55 @@ label {
     margin-top: 10px;
     cursor: pointer;
 }
+.dt-layout-row{
+    padding-bottom: 30px !important;
+}
+.dt-layout-row .dt-start{
+    width: 40% !important;
+    float: left;
+    padding-bottom: 30px !important;
+}
+.dt-layout-row .dt-end{
+    width: 60%;
+    float: left;
+    position: relative;
+    padding-bottom: 30px !important;
+}
+.dt-layout-row .dt-end .dt-search{
+    position: absolute;
+    right: 0px;
+}
+.dt-layout-row .dt-end .dt-paging{
+    position: absolute;
+    right: 0px;
+}
+.imgadmin{
+    width: 100px;
+    display: block;
+}
+.marginauto{
+    margin: auto;
+}
+.hidden{
+    visibility: hidden;
+}
+#chon-anhs{
+    height: 100px;
+}
+#anhdathem{
+    display: none;
+}
+#choose-image{
+    height: 120px;
+}
+.lbanhdathem{
+    margin-top: 30px;
+}
+.lbmotadv{
+    display: block;
+    margin-top: 50px;
+}
+
+.whitespace {
+    white-space: pre-wrap;
+ }

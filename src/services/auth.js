@@ -1,6 +1,6 @@
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Swal from 'sweetalert2'
 
 async function handleLogin(event) {
     event.preventDefault();
@@ -18,7 +18,17 @@ async function handleLogin(event) {
     var result = await res.json()
     console.log(result);
     if (res.status == 417) {
-        toast.error(result.defaultMessage);
+        if (result.errorCode == 300) {
+            Swal.fire({
+                title: "Thông báo",
+                text: "Tài khoản chưa được kích hoạt, đi tới kích hoạt tài khoản!",
+                preConfirm: () => {
+                    window.location.href = 'confirm?email=' + event.target.elements.username.value
+                }
+            });
+        } else {
+            toast.warning(result.defaultMessage);
+        }
     }
     if(res.status < 300){
         toast.success('Đăng nhập thành công!');

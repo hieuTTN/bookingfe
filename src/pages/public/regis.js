@@ -29,10 +29,9 @@ async function handleRegis(event) {
         Swal.fire({
             title: "Thông báo",
             text: "đăng ký thành công! hãy check email của bạn!",
-            type: "success"
-        },
-        function() {
-            window.location = 'confirm?email=' + result.email
+            preConfirm: () => {
+                window.location.href = 'confirm?email=' + result.email
+            }
         });
     }
 };

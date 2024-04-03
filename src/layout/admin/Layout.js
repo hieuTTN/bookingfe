@@ -1,5 +1,3 @@
-import styles from './layout.scss';
-import stylecus from './stylecus.scss';
 import {handleChangePass} from '../../services/auth'
 
 function header({ children }){
@@ -19,13 +17,48 @@ function header({ children }){
                     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                         <div class="sb-sidenav-menu">
                             <div class="nav">
-                                <a class="nav-link" href="employee">
-                                    <div class="sb-nav-link-icon"><i class="fa fa-users iconmenu"></i></div>
-                                    Nhân viên
+                                <a class="nav-link" href="index">
+                                    <div class="sb-nav-link-icon"><i class="fa fa-database iconmenu"></i></div>
+                                    Tổng quan
                                 </a>
                                 <a class="nav-link" href="user">
-                                    <div class="sb-nav-link-icon"><i class="fa fa-user iconmenu"></i></div>
+                                    <div class="sb-nav-link-icon"><i class="fas fa-user-alt iconmenu"></i></div>
                                     Tài khoản
+                                </a>
+                                <a class="nav-link" href="category">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-list iconmenu"></i></div>
+                                    Danh mục
+                                </a>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table iconmenu"></i></div>
+                                    Phòng
+                                    <div class="sb-sidenav-arrow"> <i class="fa fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="room">Tất cả phòng</a>
+                                        <a class="nav-link" href="empty-room">Phòng còn trống</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link" href="dichvu">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag iconmenu"></i></div>
+                                    Dịch vụ
+                                </a>
+                                <a class="nav-link" href="tienich">
+                                    <div class="sb-nav-link-icon"><i class="fa fa-shopping-cart iconmenu"></i></div>
+                                    Tiện ích
+                                </a>
+                                <a class="nav-link" href="blog">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-newspaper iconmenu"></i></div>
+                                    Bài viết
+                                </a>
+                                <a class="nav-link" href="booking">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file iconmenu"></i></div>
+                                    Lịch đặt
+                                </a>
+                                <a class="nav-link" href="doanhthu">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-bar iconmenu"></i></div>
+                                    Doanh thu
                                 </a>
                                 <a data-bs-toggle="modal" data-bs-target="#changepassword" class="nav-link" href="#">
                                     <div class="sb-nav-link-icon"><i class="fa fa-key iconmenu"></i></div>

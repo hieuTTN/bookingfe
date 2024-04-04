@@ -27,6 +27,10 @@ import PublicBlog from '../pages/public/blog'
 import PublicBlogDetail from '../pages/public/blogdetail'
 import PublicService from '../pages/public/service'
 import PublicBookingRoom from '../pages/public/bookingroom'
+import PublicForgot from '../pages/public/forgot'
+import PublicCheckOut from '../pages/public/checkout'
+import PublicPayment from '../pages/public/payment'
+import PublicAccount from '../pages/public/account'
 
 //private
 import DefaultLayout from '../layout/user/defaultLayout/defaultLayout'
@@ -43,6 +47,10 @@ const publicRoutes = [
     { path: "/blogdetail", component: PublicBlogDetail},
     { path: "/service", component: PublicService},
     { path: "/booking-room", component: PublicBookingRoom},
+    { path: "/forgot", component: PublicForgot, layout: layoutLogin},
+    { path: "/checkout", component: PublicCheckOut, layout: layoutLogin},
+    { path: "/payment", component: PublicPayment, layout: layoutLogin},
+    { path: "/account", component: PublicAccount},
 ];
 
 const privateRoutes = [

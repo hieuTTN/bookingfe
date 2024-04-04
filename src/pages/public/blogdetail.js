@@ -11,7 +11,7 @@ import avatar from '../../assest/images/avatar.jpg'
 
 var size = 6
 
-function PublicBlogDetail(){
+function PublicCheckOut(){
     const [items, setItems] = useState(null);
     useEffect(()=>{
       const getBlog = async() =>{
@@ -43,4 +43,4 @@ function PublicBlogDetail(){
     );
 }
 
-export default PublicBlogDetail;
+export default PublicCheckOut;

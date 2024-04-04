@@ -73,7 +73,7 @@ const AdminAddBlog = ()=>{
                 var result = await response.json();
                 setBlog(result)
                 linkbanner = result.imageBanner
-                description = result.description;
+                description = result.content;
                 document.getElementById("primaryBlog").checked = result.primaryBlog
             }
         };
@@ -117,7 +117,6 @@ const AdminAddBlog = ()=>{
                                 <Editor name='editor' tinymceScriptSrc={'https://cdn.tiny.cloud/1/f6s0gxhkpepxkws8jawvfwtj0l9lv0xjgq1swbv4lgcy3au3/tinymce/6/tinymce.min.js'}
                                         onInit={(evt, editor) => editorRef.current = editor} 
                                         initialValue={blog==null?'':blog.content}
-                                        value={blog==null?'':blog.content}
                                         onEditorChange={handleEditorChange}/>
                             </div>
                         </form>

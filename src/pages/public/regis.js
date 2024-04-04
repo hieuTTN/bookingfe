@@ -49,6 +49,8 @@ function regis(){
 
                 </div>
                 <div class="contentlogin col-sm-5">
+                <p class="titellogin">Chào mừng bạn đến với website du lịch!</p>
+                <p class="plogintl"><span class="dangtl">ĐĂNG </span><span class="kytl">KÝ</span></p>
                     <form autocomplete="off" class="inputloginform" onSubmit={handleRegis}>
                         <input name="fullname" placeholder="Họ tên" class="inputform" />
                         <input name="phone" placeholder="Số điện thoại" class="inputform"/>

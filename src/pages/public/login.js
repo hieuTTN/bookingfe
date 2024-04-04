@@ -17,6 +17,8 @@ function login(){
 
                 </div>
                 <div class="contentlogin col-sm-5">
+                    <p class="titellogin">Chào mừng bạn đến với website du lịch!</p>
+                    <p class="plogintl"><span class="dangtl">ĐĂNG </span><span class="kytl">NHẬP</span></p>
                     <form autocomplete="on" class="inputloginform" onSubmit={handleLogin}>
                         <input name="username" id="username" placeholder="Email" class="inputform" />
                         <input name="password" required id="password" placeholder="Mật khẩu" class="inputform" type="password"/>
@@ -24,8 +26,6 @@ function login(){
                         <p class="linkquenmk"><a href="forgot" class="aquenmk">Quên mật khẩu</a></p>
                         <p class="nothvaccount"><span>Bạn chưa có tài khoản? </span><a href="regis" class="aquenmk">Đăng ký ngay</a></p>
                     </form>
-                    <p class="titellogin">Chào mừng bạn đến với website du lịch!</p>
-                    <p class="plogintl"><span class="dangtl">ĐĂNG </span><span class="kytl">NHẬP</span></p>
                 </div>
             </div>
         </div>

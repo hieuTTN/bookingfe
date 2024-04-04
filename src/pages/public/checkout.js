@@ -100,6 +100,7 @@ function loadInitBooking(){
     user = JSON.parse(user);
     document.getElementById("fullname").value = user.fullname
     document.getElementById("phone").value = user.phone
+    document.getElementById("tichdiem").innerHTML = user.point + ' điểm (Tích đủ 100 điểm, bạn sẽ được giảm giá 5%)'
 }
 
     return(
@@ -154,14 +155,20 @@ function loadInitBooking(){
                     </div>
                     <div class="magg">
                         <table class="table">
+                            <thead>
                             <tr>
-                                <td>Tạm tính</td>
+                                <th>Tạm tính</th>
                                 <td class="colright" id="totalAmount">359.000đ</td>
                             </tr>
                             <tr>
-                                <td>Tiền cọc</td>
+                                <th>Tiền cọc</th>
                                 <td class="colright" id="tiencoc">0đ</td>
                             </tr>
+                            <tr>
+                                <th>Tích điểm</th>
+                                <td class="colright" id="tichdiem">0đ</td>
+                            </tr>
+                            </thead>
                         </table>
                         <button onClick={()=>requestPayMentMomo()} class="btndathangmobile">Đặt cọc</button>
 

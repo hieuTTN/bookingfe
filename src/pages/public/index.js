@@ -1,6 +1,6 @@
 import Header from '../../layout/user/header/header'
 import Footer from '../../layout/user/footer/footer'
-import banner from '../../assest/images/banner.jpg'
+import banner from '../../assest/images/bannerdp.jpg'
 import indeximg from '../../assest/images/index1.jpg'
 import index2img from '../../assest/images/index2.jpg'
 import {getMethod} from '../../services/request'

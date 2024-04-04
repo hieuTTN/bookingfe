@@ -46,6 +46,7 @@ function footer(){
       </div>
     </section>
 </footer>
+
         </div>
     );
 }

@@ -1,5 +1,4 @@
 import layoutAdmin from '../layout/admin/Layout'
-import layoutEmployee from '../layout/employee/LayoutEmployee'
 import layoutLogin from '../layout/user/loginlayout/login'
 
 //admin
@@ -32,11 +31,6 @@ import PublicCheckOut from '../pages/public/checkout'
 import PublicPayment from '../pages/public/payment'
 import PublicAccount from '../pages/public/account'
 
-//private
-import DefaultLayout from '../layout/user/defaultLayout/defaultLayout'
-import curriculum from '../pages/student/curriculum'
-import accountStudent from '../pages/student/account'
-
 const publicRoutes = [
     { path: "/", component: index},
     { path: "/index", component: index},
@@ -53,10 +47,6 @@ const publicRoutes = [
     { path: "/account", component: PublicAccount},
 ];
 
-const privateRoutes = [
-    { path: "/dao-tao/student", component: curriculum, layout: DefaultLayout},
-    { path: "/account-student", component: accountStudent, layout: DefaultLayout},
-];
 
 const adminRoutes = [
     { path: "/admin/index", component: homeAdmin, layout: layoutAdmin },
@@ -76,4 +66,4 @@ const adminRoutes = [
 
 
 
-export { publicRoutes, privateRoutes, adminRoutes};
+export { publicRoutes, adminRoutes};

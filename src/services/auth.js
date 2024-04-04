@@ -65,7 +65,7 @@ async function handleChangePass(event) {
     });
     if (res?.status == 417) {
         var result = await res.json()
-        toast.error(result.errorMessage);
+        toast.error(result.defaultMessage);
     }
     if(res?.status < 300){
         toast.success("Đổi mật khẩu thành công!");

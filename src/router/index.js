@@ -14,6 +14,8 @@ import AdminService from '../pages/admin/service'
 import AdminAddService from '../pages/admin/addservice'
 import AdminBlog from '../pages/admin/blog'
 import AdminAddBlog from '../pages/admin/addblog'
+import AdminBooking from '../pages/admin/booking'
+import AdminDoanhThu from '../pages/admin/doanhthu'
 
 
 //public
@@ -21,6 +23,10 @@ import login from '../pages/public/login'
 import index from '../pages/public/index'
 import regis from '../pages/public/regis'
 import confirm from '../pages/public/confirm'
+import PublicBlog from '../pages/public/blog'
+import PublicBlogDetail from '../pages/public/blogdetail'
+import PublicService from '../pages/public/service'
+import PublicBookingRoom from '../pages/public/bookingroom'
 
 //private
 import DefaultLayout from '../layout/user/defaultLayout/defaultLayout'
@@ -33,6 +39,10 @@ const publicRoutes = [
     { path: "/login", component: login, layout: layoutLogin },
     { path: "/regis", component: regis, layout: layoutLogin },
     { path: "/confirm", component: confirm, layout: layoutLogin },
+    { path: "/blog", component: PublicBlog},
+    { path: "/blogdetail", component: PublicBlogDetail},
+    { path: "/service", component: PublicService},
+    { path: "/booking-room", component: PublicBookingRoom},
 ];
 
 const privateRoutes = [
@@ -52,6 +62,8 @@ const adminRoutes = [
     { path: "/admin/adddichvu", component: AdminAddService, layout: layoutAdmin },
     { path: "/admin/blog", component: AdminBlog, layout: layoutAdmin },
     { path: "/admin/addblog", component: AdminAddBlog, layout: layoutAdmin },
+    { path: "/admin/booking", component: AdminBooking, layout: layoutAdmin },
+    { path: "/admin/doanhthu", component: AdminDoanhThu, layout: layoutAdmin },
 ];
 
 

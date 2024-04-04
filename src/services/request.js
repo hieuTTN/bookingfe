@@ -52,6 +52,38 @@ async function getMethodByToken(url) {
     return response
 }
 
+async function getMethodPostByToken(url) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': 'Bearer ' + token
+        })
+    });
+    return response
+}
+
+async function getMethodPostPayload(url, payload) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(payload)
+    });
+    return response
+}
+
+async function getMethodDeleteByToken(url) {
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Authorization': 'Bearer ' + token
+        })
+    });
+    return response
+}
 
 
-export {getMethod,getMethodByToken, uploadSingleFile,uploadMultipleFile}
+
+export {getMethod,getMethodByToken, uploadSingleFile,uploadMultipleFile,getMethodPostByToken,getMethodDeleteByToken,getMethodPostPayload}

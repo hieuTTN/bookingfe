@@ -182,9 +182,13 @@
     font-weight: bold;
 }
 
+#hfef{
+    text-decoration: none;
+}
 .htkny {
     font-size: 1.6rem;
     font-weight: bold;
+    text-decoration: none;
 }
 
 #listblog {
@@ -196,6 +200,9 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
+.toppad{
+    padding-top: 20px;
+}
 
 .titleblog {
     overflow: hidden;
@@ -206,7 +213,7 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9rem;
-    text-align: center;
+    // text-align: center;
 }
 
 .cntblog {
@@ -496,6 +503,10 @@ max-height:100%;
     padding-top: 0px;
 }
 .lbbooking{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.lbbookingsp{
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -922,7 +933,7 @@ max-height:100%;
     top: 100px;
     -webkit-box-shadow: 10px #dbdbdb;
     box-shadow: 0 0 10px #dbdbdb;
-    padding: 30px 0px 0px 0px;
+    padding: 20px 20px 10px 20px;
 }
 .divbtnsearchroom{
     width: 40%;
@@ -930,12 +941,14 @@ max-height:100%;
     padding-bottom: 20px;
 }
 .btnsearchroom{
-    background-color: blue;
+    background-color: blue !important;
     color: #fff;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
-    width: 100%;
+    width: 40%;
+    margin-left: 30%;
+    height: 40px;
 }
 .contenttimebooking{
     padding: 20px;
@@ -1033,6 +1046,9 @@ max-height:100%;
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.timeblog{
+    margin-left: 15px;
+}
 
 .checkbox-custom {
     display: inline-block;
@@ -1107,4 +1123,9 @@ max-height:100%;
 }
 .imgdetailacc{
     width: 100px;
+}
+.divbtnsearchroom{
+    width: 40%;
+    margin-left: 30%;
+    padding-bottom: 20px;
 }

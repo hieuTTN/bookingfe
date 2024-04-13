@@ -1,5 +1,7 @@
 import styles from './header.scss';
 import logo from '../../../assest/images/logo.png';
+import cart from '../../../assest/images/cartheader.png';
+
 
 function logout(){
     localStorage.removeItem("token");
@@ -20,40 +22,53 @@ function header (){
                 </span>
     }
     return(
-        <div id='menu'>
-           <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="navbar-brand navbar-toggler" href="index"><img class="imglogo" src={logo}/></a>
-                    <span>
-                        <i data-bs-toggle="modal" data-bs-target="#modalsearch" class="fa fa-search navbar-toggler"></i>
-                        <i class="fa fa-shopping-bag navbar-toggler"> <span class="slcartmenusm">0</span></i>
-                    </span>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="linktop" href='index'><img class="imglogo" src={logo}/></a></li>
-                        <li class="nav-item"><a class="nav-link menulink" href="index">Trang chủ</a></li>
-                        <li class="nav-item"><a class="nav-link menulink" href="blog">Bài viểt</a></li>
-                        <li class="nav-item"><a class="nav-link menulink" href="service">Dịch vụ</a></li>
-                        <li class="nav-item"><a class="nav-link menulink" href="booking-room">Đặt phòng</a></li>
-                    </ul>
-                    <div class="d-flex right10p">
-                        {authen}
+        <div id="headerweb">
+        <div class="subheader">
+            <div class="container subcontainerheader">
+                <ul>
+                    <li><a href="/gioi-thieu-cong-ty">Giới thiệu</a></li>
+                    <li><a href="/san-pham-da-xem">Sản phẩm đã xem</a></li>
+                    <li><a href="/trung-tam-bao-hanh">Trung tâm bảo hành</a></li>
+                    <li><a href="/he-thong-cua-hang">Địa chỉ cửa hàng</a></li>
+                    <li><a href="/order/check">Tra cứu đơn hàng</a></li>
+                    <li><a id="login-modal" href="">Đăng nhập</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="headertop">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src={logo} class="logoheader" />
                     </div>
-                    <div class="d-flex right10p">
-                        <a href="tel:1900%201833" class="phonemenu"><i class="fa fa-phone"></i> 1900 1833</a>
+                    <div class="col-sm-6">
+                        <div class="searchheader">
+                            <input placeholder="Hôm nay bạn cần tìm gì?" class="inputsearchheader" />
+                            <button class="btnsearchheader"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
-                    <div class="d-flex">
-                        <a href="" class="linkidmenu"><i class="fab fa-facebook icmenu pointer"></i></a>
-                        <a href="" class="linkidmenu"><i class="fab fa-youtube icmenu pointer"></i></a>
-                        <a href="" class="linkidmenu"><i class="fab fa-instagram pointer"></i></a>
-                    </div>
+                    <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col-7">
+                                <a class="btnkiemtradh" href="/order/check">
+                                    <span class="icon"><i class="fa fa-truck"></i></span>
+                                    <span class="text">Kiểm tra đơn hàng</span>
+                                </a>
+                            </div>
+                            <div class="col-5">
+                                <div class="shoppingcartheader">
+                                    <div class="shopingcontentcart">
+                                        <a href=""><img src={cart} class="imgcartheader" /></a>
+                                        <span class="cart-total">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </nav>
+            </div>
         </div>
+    </div>
     );
 
     

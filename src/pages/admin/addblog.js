@@ -33,7 +33,6 @@ async function saveBlog(event) {
         "description": event.target.elements.description.value,
         "content": description,
         "imageBanner": linkbanner,
-        "primaryBlog": document.getElementById("primaryBlog").checked,
     }
     console.log(blog)
     const response = await fetch('http://localhost:8080/api/blog/admin/create-or-update', {
@@ -74,7 +73,6 @@ const AdminAddBlog = ()=>{
                 setBlog(result)
                 linkbanner = result.imageBanner
                 description = result.content;
-                document.getElementById("primaryBlog").checked = result.primaryBlog
             }
         };
         getBlog();
@@ -89,7 +87,7 @@ const AdminAddBlog = ()=>{
         <div>
              <div class="col-sm-12 header-sps">
                     <div class="title-add-admin">
-                        <p>Thêm/ cập nhật bài viết</p>
+                        <h4>Thêm/ cập nhật bài viết</h4>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -98,10 +96,6 @@ const AdminAddBlog = ()=>{
                             <div class="col-md-4 col-sm-12 col-12">
                                 <label class="lb-form">Tiêu đề blog</label>
                                 <input defaultValue={blog==null?'':blog.title} name="title" type="text" class="form-control"/>
-                                <label class="checkbox-custom">Blog chính 
-                                    <input defaultChecked={blog==null?false:blog.primaryBlog} id="primaryBlog" type="checkbox"/>
-                                    <span class="checkmark-checkbox"></span>
-                                </label><br/>
                                 <label class="lb-form">Ảnh bài viết</label>
                                 <input id="imgbanner" type="file" class="form-control"/>
                                 <img id="imgpreview" className='imgadmin'/>

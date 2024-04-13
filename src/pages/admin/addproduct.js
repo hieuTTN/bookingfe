@@ -16,17 +16,11 @@ import React, { useRef } from 'react';
 
 var token = localStorage.getItem("token");
 
-const listFile = [];
 var linkbanner = '';
 var description = '';
-async function saveRoom(event) {
+const listFile = [];
+async function saveProduct(event) {
     event.preventDefault();
-    var listTienIch = event.target.elements.tienich;
-    var listUt = [];
-    var i=0;
-    for(i=0; i<listTienIch.length; i++){
-        listUt.push(listTienIch[i].value)
-    }
     document.getElementById("loading").style.display = 'block'
     var uls = new URL(document.URL)
     var id = uls.searchParams.get("id");
@@ -35,108 +29,87 @@ async function saveRoom(event) {
     if(ims != null){
         linkbanner = ims
     }
-    var room = {
-        "room":{
+    var prod = {
+        "product":{
             "id": id,
-            "name": event.target.elements.tenphong.value,
-            "image": linkbanner,
+            "name": event.target.elements.tensp.value,
+            "imageBanner": linkbanner,
             "price": event.target.elements.price.value,
-            "maxPeople": event.target.elements.maxPeople.value,
+            "oldPrice": event.target.elements.oldPrice.value,
             "description": description,
-            "numBed": event.target.elements.numBed.value,
             "category": {
                 "id":event.target.elements.danhmuc.value
             },
         },
-        "listImage":listLinkImg,
-        "listUtilityId":listUt
+        "linkLinkImages":listLinkImg,
     }
-    console.log(room)
-    const response = await fetch('http://localhost:8080/api/room/admin/create', {
+    console.log(prod)
+    const response = await fetch('http://localhost:8080/api/product/admin/create-update', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         }),
-        body: JSON.stringify(room)
+        body: JSON.stringify(prod)
     });
     var result = await response.json();
     console.log(result)
     if (response.status < 300) {
         Swal.fire({
             title: "Thông báo",
-            text: "Thêm phòng thành công!",
+            text: "Thêm sản phẩm thành công!",
             preConfirm: () => {
-                window.location.href = 'room'
+                window.location.href = 'product'
             }
         });
     } else {
-        toast.error("Thêm/ sửa phòng thất bại");
+        toast.error("Thêm/ sửa sản phẩm thất bại");
         document.getElementById("loading").style.display = 'none'
     }
 }
 
 
-const AdminRoom = ()=>{
+const AdminAddProduct = ()=>{
     const editorRef = useRef(null);
-    const [itemTienIch, setItemTienIch] = useState([]);
+    const [product, setProduct] = useState(null);
     const [itemDanhmuc, setItemDanhMuc] = useState([]);
-    const [room, setRoom] = useState(null);
-    const [itemul, setItemUl] = useState([]);
-    const [des, setDest] = useState('');
     useEffect(()=>{
-        const getTienIch= async() =>{
-            var response = await getMethodByToken("http://localhost:8080/api/utilities/public/findAll");
-            var list = await response.json();
-            setItemTienIch(list)
+        const getBlog= async() =>{
+            var uls = new URL(document.URL)
+            var id = uls.searchParams.get("id");
+            if(id != null){
+                var response = await getMethodByToken('http://localhost:8080/api/product/public/findById?id=' + id);
+                var result = await response.json();
+                setProduct(result)
+                linkbanner = result.imageBanner
+                description = result.description;
+            }
         };
-        getTienIch();
+        getBlog();
+
         const getDanhMuc= async() =>{
-            var response = await getMethodByToken("http://localhost:8080/api/category/public/findAll?type=ROOM");
+            var response = await getMethodByToken("http://localhost:8080/api/category/public/findAll");
             var list = await response.json();
             setItemDanhMuc(list)
         };
         getDanhMuc();
-        const getRoom= async() =>{
-            var uls = new URL(document.URL)
-            var id = uls.searchParams.get("id");
-            if(id != null){
-                var response = await getMethodByToken('http://localhost:8080/api/room/admin/findById?id=' + id);
-                var result = await response.json();
-                setRoom(result)
-                document.getElementById("anhdathem").style.display = 'block'
-                linkbanner = result.image
-                var listim = [];
-                for(var i=0; i< result.roomUtilities.length; i++){
-                    listim.push(result.roomUtilities[i].utilities)
-                }
-                setItemUl(listim)
-                description = result.description;
-            }
-        };
-        getRoom();
     }, []);
+
+    function handleEditorChange(content, editor) {
+        description = content;
+    }
 
     function openChonAnh(){
         document.getElementById("choosefile").click();
     }
 
-    function handleEditorChange(content, editor) {
-        description = content;
-    }
-    console.log(room);
-
-
-    function handleItemSelectChange(e){
-        setItemUl(e);
-    }
 
     async function deleteImage(id) {
         var con = window.confirm("Bạn muốn xóa ảnh này?");
         if (con == false) {
             return;
         }
-        var url = 'http://localhost:8080/api/room-image/admin/delete?id=' + id;
+        var url = 'http://localhost:8080/api/product-image/admin/delete?id=' + id;
         const response = await fetch(url, {
             method: 'DELETE',
             headers: new Headers({
@@ -152,44 +125,32 @@ const AdminRoom = ()=>{
             toast.warning(result.defaultMessage);
         }
     }
-
+    console.log(product);
     return (
         <div>
              <div class="col-sm-12 header-sps">
                     <div class="title-add-admin">
-                        <p>Thêm/ cập nhật phòng</p>
+                        <h4>Thêm/ cập nhật sản phẩm</h4>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-add">
-                        <form class="row" onSubmit={saveRoom} method='post'>
+                    <div class="form-add">
+                        <form class="row" onSubmit={saveProduct} method='post'>
                             <div class="col-md-4 col-sm-12 col-12">
-                                <label class="lb-form">Tên phòng</label>
-                                <input name="tenphong" defaultValue={room==null?'':room.name} class="form-control"/>
-                                <label class="lb-form">Giá tiền</label>
-                                <input name="price" defaultValue={room==null?'':room.price} class="form-control"/>
-                                <label class="lb-form">Số giường</label>
-                                <input name="numBed" defaultValue={room==null?'':room.numBed} class="form-control"/>
-                                <label class="lb-form">Số người tối đa</label>
-                                <input name="maxPeople" defaultValue={room==null?'':room.maxPeople} class="form-control"/>
-                                <label class="lb-form">Danh mục phòng</label>
+                                <label class="lb-form">Tên sản phẩm</label>
+                                <input name="tensp" defaultValue={product==null?'':product.name} class="form-control"/>
+                                <label class="lb-form">Giá tiền hiện tại</label>
+                                <input name="price" defaultValue={product==null?'':product.price} class="form-control"/>
+                                <label class="lb-form">Giá tiền cũ</label>
+                                <input name="oldPrice" defaultValue={product==null?'':product.oldPrice} class="form-control"/>
+                                <label class="lb-form">Danh mục</label>
                                 <select name="danhmuc" class="form-control">
                                     {itemDanhmuc.map((item=>{
-                                         var s = room==null?'':room.category.id == item.id?'selected':''
+                                         var s = product==null?'':product.category.id == item.id?'selected':''
                                         return <option selected={s} value={item.id}>{item.name}</option>
                                     }))}
                                 </select>
-                                <label class="lb-form">Tiện ích</label>
-                                <AsyncSelect  name='tienich'
-                                isMulti
-                                value={itemul}
-                                onChange={(item) => {
-                                    handleItemSelectChange(item);
-                                  }}
-                                defaultOptions={itemTienIch} 
-                                getOptionLabel={(itemTienIch)=>itemTienIch.name} 
-                                getOptionValue={(itemTienIch)=>itemTienIch.id}  
-                                placeholder="Chọn tiện ích"/>
                                 <br/>
                                 <div class="loading" id="loading">
                                     <div class="bar1 bar"></div>
@@ -199,7 +160,7 @@ const AdminRoom = ()=>{
                             <div class="col-md-8 col-sm-12 col-12">
                                 <label class="lb-form">Ảnh nền</label>
                                 <input id="imgbanner" type="file" class="form-control"/>
-                                <img src={room==null?'':room.image} id="imgpreproduct" className='imgadmin'/>
+                                <img src={product==null?'':product.image} id="imgpreproduct" className='imgadmin'/>
                                 <br/><br/><label class="lb-form">Ảnh phụ</label>
                                 <input accept="image/*" onChange={()=>previewImages()} id="choosefile" multiple type="file" className='hidden'/>
                                 <div class="row">
@@ -208,41 +169,44 @@ const AdminRoom = ()=>{
                                             <div class="col-md-3" id="chon-anhs">
                                                 <div id="choose-image" class="choose-image" onClick={()=>openChonAnh()}>
                                                     <p><i class="fas fa-camera" id="camera"></i></p>
-                                                    <p id="numimage">Chọn ảnh phụ cho phòng</p>
+                                                    <p id="numimage">Chọn ảnh phụ cho sản phẩm</p>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div class="row" id="anhdathem" >
+                                    {
+                                        product == null ? <></> : <div class="row">
                                         <div class="col-sm-12">
                                             <h4 className='lbanhdathem'>Ảnh đã thêm</h4>
                                         </div>
                                         <div id="listanhdathem" class="row">
-                                            {room==null?'': 
-                                            room.roomImages.map((item=>{
+                                            {product==null?'': 
+                                            product.productImages.map((item=>{
                                                 return <div id={"imgdathem"+item.id} class="col-md-3 col-sm-4 col-4">
-                                                <img  src={item.image} class="image-upload"/>
+                                                <img  src={item.linkImage} class="image-upload"/>
                                                 <button type='button' onClick={()=>deleteImage(item.id)} class="btn btn-danger form-control">Xóa ảnh</button>
                                             </div>
                                             })) }
                                         </div>
                                     </div>
+                                       
+                                    }
                                 </div>
                                 <label class="lb-form lbmotadv">Mô tả dịch vụ</label>
                                 <Editor name='editor' tinymceScriptSrc={'https://cdn.tiny.cloud/1/f6s0gxhkpepxkws8jawvfwtj0l9lv0xjgq1swbv4lgcy3au3/tinymce/6/tinymce.min.js'}
                                         onInit={(evt, editor) => editorRef.current = editor} 
-                                        initialValue={room==null?'':room.description}
-                                        value={room==null?'':room.description}
+                                        initialValue={product==null?'':product.description}
+                                        value={product==null?'':product.description}
                                         onEditorChange={handleEditorChange}/>
                             </div>
                         </form>
+                    </div>
                     </div>
                 </div>
         </div>
     );
 }
-
 
 function previewImages() {
     var files = document.getElementById("choosefile").files;
@@ -311,4 +275,4 @@ function previewImages() {
 
 }
 
-export default AdminRoom;
+export default AdminAddProduct;

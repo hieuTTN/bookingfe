@@ -1,104 +1,117 @@
 import {handleChangePass} from '../../services/auth'
+import '../admin/layout.scss'
+import lich from '../../assest/images/lich.png'
+import avatar from '../../assest/images/user.svg'
+import { useState, useEffect } from 'react'
 
-function header({ children }){
-    checkAdmin();
+function Header({ children }){
+
+    useEffect(()=>{
+        getDateTime();
+
+    }, []);
+    function getDateTime() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds(); //
+            var a = 0;
+            //
+            if (month.toString().length == 1) {
+                month = '0' + month;
+            }
+            if (day.toString().length == 1) {
+                day = '0' + day;
+            }
+            if (hour.toString().length == 1) {
+                hour = '0' + hour;
+            }
+            if (minute.toString().length == 1) {
+                minute = '0' + minute;
+            }
+            if (second.toString().length == 1) {
+                second = '0' + second;
+            }
+            var dateTime = year + '/' + month + '/' + day + ' ' + hour + ':' +
+                minute + ':' + second;
+            return dateTime;
+        }
+        setInterval(function() {
+            var currentTime = getDateTime();
+            document.getElementById("digital-clock").innerHTML = currentTime;
+        }, 1000);
+        
+        var date = new Date();
+        
+        var current_day = date.getDay();
+        
+        var day_name = '';
+        
+        switch (current_day) {
+            case 0:
+                day_name = "Chủ nhật";
+                break;
+            case 1:
+                day_name = "Thứ hai";
+                break;
+            case 2:
+                day_name = "Thứ ba";
+                break;
+            case 3:
+                day_name = "Thứ tư";
+                break;
+            case 4:
+                day_name = "Thứ năm";
+                break;
+            case 5:
+                day_name = "Thứ sáu";
+                break;
+            case 6:
+                day_name = "Thứ bảy";
+        }
     return(
-        <div class="sb-nav-fixed">
-            <nav id="top" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-                <a class="navbar-brand ps-3" href="#">Quản trị hệ thống</a>
-                <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-                <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
-                <ul id="menuleft" class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                </ul>
-            </nav>
-            
-            <div id="layoutSidenav">
-                <div id="layoutSidenav_nav">
-                    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                        <div class="sb-sidenav-menu">
-                            <div class="nav">
-                                <a class="nav-link" href="index">
-                                    <div class="sb-nav-link-icon"><i class="fa fa-database iconmenu"></i></div>
-                                    Tổng quan
-                                </a>
-                                <a class="nav-link" href="user">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-user-alt iconmenu"></i></div>
-                                    Tài khoản
-                                </a>
-                                <a class="nav-link" href="category">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-list iconmenu"></i></div>
-                                    Danh mục
-                                </a>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-table iconmenu"></i></div>
-                                    Phòng
-                                    <div class="sb-sidenav-arrow"> <i class="fa fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="room">Tất cả phòng</a>
-                                        <a class="nav-link" href="empty-room">Phòng còn trống</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link" href="dichvu">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag iconmenu"></i></div>
-                                    Dịch vụ
-                                </a>
-                                <a class="nav-link" href="tienich">
-                                    <div class="sb-nav-link-icon"><i class="fa fa-shopping-cart iconmenu"></i></div>
-                                    Tiện ích
-                                </a>
-                                <a class="nav-link" href="blog">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-newspaper iconmenu"></i></div>
-                                    Bài viết
-                                </a>
-                                <a class="nav-link" href="booking">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-file iconmenu"></i></div>
-                                    Lịch đặt
-                                </a>
-                                <a class="nav-link" href="doanhthu">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-bar iconmenu"></i></div>
-                                    Doanh thu
-                                </a>
-                                <a data-bs-toggle="modal" data-bs-target="#changepassword" class="nav-link" href="#">
-                                    <div class="sb-nav-link-icon"><i class="fa fa-key iconmenu"></i></div>
-                                    Mật khẩu
-                                </a>
-                                <a onClick={logout} class="nav-link" href="#">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt iconmenu"></i></div>
-                                    Đăng xuất
-                                </a>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <div id="layoutSidenav_content">
-                    <main class="main">
-                        {children}
-                    </main>
-                </div>
+        <>
+         <div class="navleft" id="navleft">
+         <div class="divroot">
+                <h3>Quản trị</h3>
             </div>
-
-            <div class="modal fade" id="changepassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5> <button id='btnclosemodal' type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                        <div class="modal-body row">
-                            <form method='post' onSubmit={handleChangePass}>
-                                <label class="lbacc">Mật khẩu hiện tại *</label>
-                                <input required name='currentpass' type="password" class="form-control" />
-                                <label class="lbacc">Mật khẩu mới *</label>
-                                <input required name='newpass' type="password" class="form-control"/>
-                                <label class="lbacc">Xác nhận mật khẩu mới *</label>
-                                <input required name='renewpass' type="password" class="form-control"/>
-                                <button type="submit" class="btntt">LƯU</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div class="listmenumain">
+                <a href="index.html">Trang chủ</a>
+                <a href="user">Tài khoản</a>
+                <a href="category">Danh mục</a>
+                <a href="blog">Bài viết</a>
+                <a href="product">Sản phẩm</a>
+                <a href="">Đơn hàng</a>
+                <a href="">Nhập hàng</a>
+                <a href="#" onClick={()=>logout()}>Đăng xuất</a>
             </div>
+         </div>
+    <div class="contentadminweb">
+        <div class="headerweb" id="headerweb">
+        <div class="lichheader">
+        <img class="iconlich" src={lich} />
+        <p class="text-gray fst-italic mb-0">
+            <p id="digital-clock"></p>
+        </p>
+    </div>
+    <div class="userheader">
+        <a class="nav-link dropdown-toggle menucha" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="tendangnhap"></span>
+            <img src={avatar} class="userlogo"/>
+        </a>
+        <ul class="dropdown-menu listitemtk" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" onclick="dangXuat()" href="#"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+        </ul>
+    </div>
         </div>
+        <div class="contentmain">
+            {children}
+        </div>
+    </div>
+        </>
     );
 }
 
@@ -122,4 +135,4 @@ function logout(){
     window.location.replace('../login')
 }
 
-export default header;
+export default Header;

@@ -1,4 +1,3 @@
-import StyleFooter from '../header/header.scss'
 import logofooter from '../../../assest/images/footer.png'
 
 function footer(){

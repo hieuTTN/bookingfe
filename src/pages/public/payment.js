@@ -56,7 +56,7 @@ async function createBooking() {
     }
 
 $( document ).ready(function() {
-    createBooking();
+    // createBooking();
 });
 
 function PublicPayment(){

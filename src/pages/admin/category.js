@@ -22,11 +22,11 @@ async function saveCategory(event) {
         id: event.target.elements.idcate.value,
         name: event.target.elements.catename.value,
         image: imgbanner,
-        categoryType: event.target.elements.typecate.value
     };
     const res = await fetch('http://localhost:8080/api/category/admin/create', {
         method: 'POST',
         headers: new Headers({
+            'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify(payload)
@@ -36,12 +36,15 @@ async function saveCategory(event) {
         await new Promise(resolve => setTimeout(resolve, 1000));
         window.location.reload();
     }
+    if (res.status == 417) {
+        var result = await res.json()
+        toast.error(result.defaultMessage);
+    }
 };
 
 
 const AdminCateory = ()=>{
     const [items, setItems] = useState([]);
-    const [itemsType, setItemsType] = useState([]);
     const [cate, setCate] = useState(null);
     useEffect(()=>{
         const getCategrory = async() =>{
@@ -50,12 +53,6 @@ const AdminCateory = ()=>{
             setItems(list)
         };
         getCategrory();
-        const getCategroryType = async() =>{
-            var response = await getMethodByToken("http://localhost:8080/api/category/public/get-all-type-category");
-            var list = await response.json();
-            setItemsType(list)
-        };
-        getCategroryType();
     }, []);
 
     $( document ).ready(function() {
@@ -108,73 +105,63 @@ const AdminCateory = ()=>{
     }
 
     return (
-        <div>
-            <div class="col-sm-12 header-sp">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a onClick={()=>clearInput()} data-bs-toggle="modal" data-bs-target="#themdanhmuc" class="btn btn-success"><i class="fa fa-plus"></i> Thêm danh mục</a>
-                        </div>
-                    </div>
+        <>
+            <div class="row">
+                <div class="col-md-3">
+                    <a onClick={()=>clearInput()} data-bs-toggle="modal" data-bs-target="#themdanhmuc" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm danh mục</a>
                 </div>
-                <div class="col-sm-12">
-                    <div class="wrapper">
-                    <table id="example" class="table table-striped tablefix">
-                            <thead class="thead-tablefix">
-                                <tr>
-                                    <th>id</th>
-                                    <th>Ảnh</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Loại</th>
-                                    <th class="sticky-col">Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody id="listuser">
-                                {items.map((item=>{
+            </div>
+            <div class="tablediv">
+                <div class="headertable">
+                    <span class="lbtable">Danh sách danh mục</span>
+                </div>
+                <div class="divcontenttable">
+                    <table id="example" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Ảnh</th>
+                                <th>Tên danh mục</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items.map((item=>{
                                     return  <tr>
                                     <td>{item.id}</td>
                                     <td><img src={item.image} className='imgadmin'/></td>
                                     <td>{item.name}</td>
-                                    <td>{item.categoryType}</td>
                                     <td class="sticky-col">
                                         <i onClick={()=>deleteCategory(item.id)} class="fa fa-trash iconaction"></i>
                                         <a onClick={()=>loadACategory(item.id)} data-bs-toggle="modal" data-bs-target="#themdanhmuc"><i class="fa fa-edit iconaction"></i></a>
                                     </td>
                                 </tr>
-                                }))}
-                            </tbody>
-                        </table>
-
-                    </div>
+                            }))}
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <div class="modal fade" id="themdanhmuc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Thêm/ cập nhật danh mục</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-            <div class="modal-body">
-                <form class="col-sm-5 marginauto" onSubmit={saveCategory} method='post'>
-                    <input defaultValue={cate==null?'':cate.id} name="idcate" id='idcate' type="hidden" />
-                    <label>Tên danh mục</label>
-                    <input defaultValue={cate==null?'':cate.name} name="catename" id='catename' type="text" class="form-control" />
-                    <label>Loại danh mục</label>
-                    <select name="typecate" class="form-control">
-                        {itemsType.map((item=>{
-                            var s = cate==null?'':cate.categoryType == item?'selected':''
-                            return <option selected={s} value={item}>{item}</option>
-                        }))}
-                    </select>
-                    <label>Ảnh</label>
-                    <input id='fileimage' name="fileimage" type="file" class="form-control" />
-                    <img src={cate==null?'':cate.image} id="imgpreview" className='imgadmin'/>
-                    <br/><br/>
-                    <button onclick="saveCategory()" class="btn btn-success form-control action-btn">Thêm/ Cập nhật danh mục</button>
-                </form>
             </div>
-          </div>
+
+        <div class="modal fade" id="themdanhmuc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Thêm/ cập nhật danh mục</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body">
+                    <form class="col-sm-5 marginauto" onSubmit={saveCategory} method='post'>
+                        <input defaultValue={cate==null?'':cate.id} name="idcate" id='idcate' type="hidden" />
+                        <label>Tên danh mục</label>
+                        <input defaultValue={cate==null?'':cate.name} name="catename" id='catename' type="text" class="form-control" />
+                        <label>Ảnh</label>
+                        <input id='fileimage' name="fileimage" type="file" class="form-control" />
+                        <img src={cate==null?'':cate.image} id="imgpreview" className='imgadmin'/>
+                        <br/><br/>
+                        <button class="btn btn-success form-control action-btn">Thêm/ Cập nhật danh mục</button>
+                    </form>
+                </div>
+            </div>
+            </div>
         </div>
-    </div>
-        </div>
+        </>
     );
 }
 

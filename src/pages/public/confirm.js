@@ -1,6 +1,6 @@
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import logologin from '../../assest/images/loginimg.jpg'
+import logologin from '../../assest/images/logologin.jpg'
 import Swal from 'sweetalert2'
 // import {handleLogin} from '../../services/auth';
 
@@ -28,32 +28,26 @@ async function handleConfirm(event) {
     }
 };
 
-function backToLogin(){
-    window.location.href = 'login'
-}
-
 function confirm(){
     return(
-        <div class="contentmain">
-            <div class="loginform row" style={{  
-                backgroundImage: "url(" + logologin + ")",
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-                }}>
-                <div class="col-sm-7">
-
+        <div class="contentweb">
+        <div class="container">
+            <div class="dangnhapform">
+                <div class="divimglogin">
+                    <img src={logologin} alt=""/>
                 </div>
-                <div class="contentlogin col-sm-5">
-                    <form autocomplete="off" class="inputloginform" onSubmit={handleConfirm}>
-                        <input name="maxacthuc" placeholder="Nhập mã xác thực" class="inputform"/>
-                        <button type="button" class="btnhuylogin" onClick={()=>backToLogin()}>HỦY</button>
-                        <button type="submit" class="btntt">Xác thực</button>
+                <div class="divctlogin">
+                    <p class="labeldangnhap">Xác Nhận Đăng Ký Tài Khoản</p>
+                    <form onSubmit={handleConfirm} autocomplete="off">
+                        <label class="lbform">Nhập mã xác nhận của bạn</label>
+                        <input name='key' id="maxacthuc" class="inputlogin"/>
+                        <button class="btndangnhap">XÁC NHẬN</button>
+                        <button type="button" onClick={()=>{window.location.href = 'login'}} class="btndangky">ĐĂNG NHẬP</button>
                     </form>
                 </div>
             </div>
         </div>
-        
+    </div>
     );
 }
 export default confirm;
